@@ -1,0 +1,27 @@
+postgresql_version: 9.5
+postgresql_listen_addresses: "*"
+postgresql_max_connections: 300
+postgresql_wal_level: "hot_standby"
+postgresql_hot_standby: "on"
+postgresql_statement_timeout: 60000
+postgresql_log_lock_waits: "on"
+postgresql_log_destination: "csvlog"
+postgresql_log_min_duration_statement: 0
+
+postgresql_users:
+  - name: jasoet
+    pass: md5421aa90e079fa326b6494f812ad13e79
+    encrypted: yes
+  - name: wallet_proxy
+    pass: md5421aa90e079fa326b6494f812ad13e79
+    encrypted: yes
+  - name: rep
+    pass: md5421aa90e079fa326b6494f812ad13e79
+    encrypted: yes
+
+postgresql_databases:
+  - name: wallet_proxy
+    owner: wallet_proxy
+
+postgresql_pg_hba_custom:
+  - {type: "host", database: "all", user: "all", address: "0.0.0.0/0", method: "md5" }
