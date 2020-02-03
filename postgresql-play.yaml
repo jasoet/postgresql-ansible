@@ -1,0 +1,4 @@
+- hosts: postgres_clusters
+  become: yes
+  roles: 
+    - role: anxs.postgresql
