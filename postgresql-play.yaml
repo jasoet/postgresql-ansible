@@ -1,6 +1,12 @@
-- hosts: postgres_clusters
+- hosts: postgres_master
   become: yes
   vars_files:
     - master.yaml
+  roles:
+    - role: postgresql
+- hosts: postgres_slave
+  become: yes
+  vars_files:
+    - slave.yaml
   roles:
     - role: postgresql

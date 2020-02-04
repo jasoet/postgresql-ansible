@@ -9,31 +9,18 @@ postgresql_log_destination: "csvlog"
 postgresql_log_min_duration_statement: 0
 
 postgresql_users:
-  - name: jasoet
-    pass: md5e161c845536afb6673f052c97284b794
   - name: wallet_proxy
     pass: md5317226d5fc118c1b0889b880feca314b
-  - name: rep
-    pass: md51b1ed9fe3116c01c93b76ac325313ee9
     
 postgresql_databases:
   - name: wallet_proxy
     owner: wallet_proxy
     
 postgresql_user_privileges:
-  - name: jasoet
-    db: wallet_proxy
-    priv: "ALL"
-    role_attr_flags: "SUPERUSER"
   - name: wallet_proxy
     db: wallet_proxy
     priv: "ALL"
-    role_attr_flags: "INHERIT"
-  - name: rep
-    db: postgres
-    priv: "ALL"
-    role_attr_flags: "REPLICATION"
+    role_attr_flags: "SUPERUSER"
 
 postgresql_pg_hba_custom:
   - {type: "host", database: "all", user: "all", address: "0.0.0.0/0", method: "md5" }
-  - {type: "host", database: "replication", user: "rep", address: "192.168.33.11/32", method: "trust" }
