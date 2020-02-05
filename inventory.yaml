@@ -7,7 +7,7 @@ all:
           ansible_host: 127.0.0.1
       vars:
         ansible_python_interpreter: /usr/bin/python3
-        ansible_port: 2202
+        ansible_port: 2222
         ansible_user: vagrant
         ansible_private_key_file: .vagrant/machines/master/virtualbox/private_key
     postgres_slave:
@@ -16,7 +16,7 @@ all:
           ansible_host: 127.0.0.1
       vars:
         ansible_python_interpreter: /usr/bin/python3
-        ansible_port: 2203
+        ansible_port: 2200
         ansible_user: vagrant
         ansible_private_key_file: .vagrant/machines/slave/virtualbox/private_key
 

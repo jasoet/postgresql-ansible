@@ -1,0 +1,54 @@
+- hosts: postgres_master
+  become: yes
+  vars_files:
+    - common-vars.yaml
+    - master-vars.yaml
+  roles:
+    - role: postgresql
+- hosts: postgres_slave
+  become: yes
+  vars_files:
+    - common-vars.yaml
+    - slave-vars.yaml
+  roles:
+    - role: postgresql
+- hosts: postgres_slave
+  become: yes
+  vars_files:
+    - common-vars.yaml
+    - slave-vars.yaml
+  tasks:
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "./roles/postgresql/vars/{{ ansible_os_family }}.yml"
+        - "./roles/postgresql/vars/empty.yml"
+      tags: [always]
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "./roles/postgresql/vars/postgresql_{{ postgresql_version }}.yml"
+        - "./roles/postgresql/vars/empty.yml"
+      tags: [always]
+    - name: PostgreSQL | Ensure PostgreSQL is running
+      service:
+        name: "{{ postgresql_service_name }}"
+        state: started
+    - name: PostgreSQL | Ensure PostgreSQL is stopped
+      service:
+        name: "{{ postgresql_service_name }}"
+        state: stopped
+    - name: Remove Postgresql Data
+      file:
+        state: absent
+        path: "{{ postgresql_data_directory }}"
+    - name: Check if database is already initialized
+      stat:
+        path: '{{ postgresql_data_directory }}/PG_VERSION'
+      register: init_status
+    - name: Initialize the slave database
+      shell: "pg_basebackup -h {{ postgresql_master_ip }}  -D  {{ postgresql_data_directory }} -U {{ postgresql_replication_user }} -X stream -v -P"
+      when: init_status.stat.exists == False
+      become_user: postgres
+    - name: restart postgresql
+      service:
+        name: "{{ postgresql_service_name }}"
+        state: started
