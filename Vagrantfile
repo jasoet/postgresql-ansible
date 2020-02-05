@@ -5,14 +5,24 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
 
   config.vm.define "master" do |master|
-    master.ssh.forward_agent = true
     master.vm.network "private_network", ip: "192.168.33.10"
-    master.vm.hostname = "postgresql-master"
+    master.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-master/g' /etc/hosts"
+    master.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-master/g' /etc/hostname"
+    master.vm.provision "shell", inline: "sudo reboot"
   end
 
-  config.vm.define "slave" do |slave|
-    slave.ssh.forward_agent = true
-    slave.vm.network "private_network", ip: "192.168.33.11"
-    slave.vm.hostname = "postgresql-slave"
+  config.vm.define "slave-one" do |slave|
+    slave.vm.network "private_network", ip: "192.168.33.12"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-one/g' /etc/hosts"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-one/g' /etc/hostname"
+    slave.vm.provision "shell", inline: "sudo reboot"
   end
+
+  config.vm.define "slave-two" do |slave|
+    slave.vm.network "private_network", ip: "192.168.33.13"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-two/g' /etc/hosts"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-to/g' /etc/hostname"
+    slave.vm.provision "shell", inline: "sudo reboot"
+  end
+
 end
