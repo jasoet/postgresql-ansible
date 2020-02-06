@@ -42,14 +42,17 @@
       service:
         name: "{{ postgresql_service_name }}"
         state: stopped
+      when: postgresql_replication_confirmation == True
     - name: Remove Postgresql Data
       file:
         state: absent
         path: "{{ postgresql_data_directory }}"
+      when: postgresql_replication_confirmation == True
     - name: Check if database is already initialized
       stat:
         path: '{{ postgresql_data_directory }}/PG_VERSION'
       register: init_status
+      when: postgresql_replication_confirmation == True
     - name: Initialize the slave database
       shell: "pg_basebackup -h {{ postgresql_master_ip }}  -D  {{ postgresql_data_directory }} -U {{ postgresql_replication_user }} -X stream -v -P"
       when: init_status.stat.exists == False

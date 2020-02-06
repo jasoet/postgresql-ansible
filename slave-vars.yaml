@@ -17,5 +17,6 @@ postgresql_pg_hba_custom:
   
 postgresql_master_ip: 192.168.33.10
 postgresql_replication_user: rep
+postgresql_replication_confirmation: False
 postgresql_varlib_directory_name: "postgresql"
 postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{ postgresql_version }}/main"
