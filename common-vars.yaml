@@ -12,7 +12,7 @@ postgresql_track_counts: on
 postgresql_max_connections: 1000
 
 postgresql_wal_level: "hot_standby"
-postgresql_archive_mode: "off"
+postgresql_archive_mode: "on"
 postgresql_archive_command: "cd ."
 postgresql_log_min_duration_statement: 70
 postgresql_max_wal_senders: 8

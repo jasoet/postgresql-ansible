@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export AWS_ENDPOINT=http://192.168.33.11:9091
+export WALE_S3_PREFIX=s3://opans
+export AWS_ACCESS_KEY_ID=minio
+export AWS_SECRET_ACCESS_KEY=minio1234
+export AWS_S3_FORCE_PATH_STYLE="true"
+export AWS_REGION=us-east-1
+
+export PGHOST=/var/run/postgresql
+export PGUSER=postgres
+
+
+wal-g backup-push $1
