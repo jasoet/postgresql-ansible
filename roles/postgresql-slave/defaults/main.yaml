@@ -1,0 +1,16 @@
+postgresql_version: 12
+
+postgresql_replication_confirmation: False
+
+postgresql_replication_master_host: ""
+postgresql_replication_master_port: 5432
+postgresql_replication_user: rep
+postgresql_replication_password: localhost
+postgresql_replication_trigger_file: /tmp/postgresql.trigger.5432
+
+postgresql_service_name: "postgresql"
+postgresql_bin_directory: /usr/bin
+
+postgresql_cluster_name: main
+postgresql_varlib_directory_name: "postgresql"
+postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{ postgresql_version }}/{{ postgresql_cluster_name }}"

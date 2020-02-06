@@ -1,0 +1,36 @@
+- name: PostgreSQL | Ensure PostgreSQL is running
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: started
+    
+- name: PostgreSQL | Ensure PostgreSQL is stopped
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: stopped
+  when: postgresql_replication_confirmation == True
+  
+- name: Remove Postgresql Data
+  file:
+    state: absent
+    path: "{{ postgresql_data_directory }}"
+  when: postgresql_replication_confirmation == True
+  
+- name: Initialize the slave database
+  shell: "pg_basebackup -h {{ postgresql_replication_master_host }}  -D  {{ postgresql_data_directory }} -U {{ postgresql_replication_user }} -X stream -v -P"
+  when: postgresql_replication_confirmation == True and init_status.stat.exists == False
+  become_user: postgres
+  
+- name: "Setup recovery.conf"
+  template:
+    src: recovery.conf.j2
+    dest: "{{ postgresql_data_directory }}/recovery.conf"
+    owner: "postgres"
+    group: "postgres"
+    mode: 0644
+    backup: true
+  when: postgresql_replication_confirmation == True
+
+- name: restart postgresql
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: started
