@@ -11,6 +11,13 @@ Vagrant.configure("2") do |config|
     master.vm.provision "shell", inline: "sudo reboot"
   end
 
+  config.vm.define "minio" do |slave|
+    slave.vm.network "private_network", ip: "192.168.33.11"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/minio/g' /etc/hosts"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/minio/g' /etc/hostname"
+    slave.vm.provision "shell", inline: "sudo reboot"
+  end
+
   config.vm.define "slave-one" do |slave|
     slave.vm.network "private_network", ip: "192.168.33.12"
     slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-one/g' /etc/hosts"

@@ -22,4 +22,14 @@ all:
         ansible_python_interpreter: /usr/bin/python3
         ansible_port: 22
         ansible_user: vagrant
+    minio:
+      hosts:
+        minio:
+          ansible_host: 192.168.33.11
+          ansible_private_key_file: .vagrant/machines/minio/virtualbox/private_key
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+        ansible_port: 22
+        ansible_user: vagrant
+
 
