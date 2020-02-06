@@ -18,11 +18,4 @@
     - slave-vars.yaml
   roles:
     - role: postgresql
-- hosts: postgres_slave
-  become: yes
-  vars_files:
-    - common-vars.yaml
-    - slave-vars.yaml
-  tasks:
-  roles:
     - role: postgresql-slave
