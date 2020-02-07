@@ -16,19 +16,19 @@
   when: postgresql_replication_confirmation == True
   
 - name: Initialize the slave database
-  shell: "pg_basebackup -h {{ postgresql_replication_master_host }}  -D  {{ postgresql_data_directory }} -U {{ postgresql_replication_user }} -X stream -v -P"
+  shell: "pg_basebackup -h {{ postgresql_replication_master_host }}  -D  {{ postgresql_data_directory }} -U {{ postgresql_replication_user }} -R -X stream -v -P"
   when: postgresql_replication_confirmation == True
   become_user: postgres
   
-- name: "Setup recovery.conf"
-  template:
-    src: recovery.conf.j2
-    dest: "{{ postgresql_data_directory }}/recovery.conf"
-    owner: "postgres"
-    group: "postgres"
-    mode: 0644
-    backup: true
-  when: postgresql_replication_confirmation == True
+#- name: "Setup recovery.conf"
+#  template:
+#    src: recovery.conf.j2
+#    dest: "{{ postgresql_data_directory }}/recovery.conf"
+#    owner: "postgres"
+#    group: "postgres"
+#    mode: 0644
+#    backup: true
+#  when: postgresql_replication_confirmation == True
 
 - name: restart postgresql
   service:

@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "slave-two" do |slave|
     slave.vm.network "private_network", ip: "192.168.33.13"
     slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-two/g' /etc/hosts"
-    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-to/g' /etc/hostname"
+    slave.vm.provision "shell", inline: "sudo sed -i 's/ubuntu-bionic/postgresql-slave-two/g' /etc/hostname"
     slave.vm.provision "shell", inline: "sudo reboot"
   end
 

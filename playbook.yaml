@@ -5,13 +5,7 @@
     - master-vars.yaml
   roles:
     - role: postgresql
-- hosts: minio
-  become: yes
-  vars_files:
-    - minio-vars.yaml
-  roles:
-    - role: minio
-- hosts: postgres_slave
+- hosts: postgres_slave_one
   become: yes
   vars_files:
     - common-vars.yaml
@@ -19,3 +13,17 @@
   roles:
     - role: postgresql
     - role: postgresql-slave
+- hosts: postgres_slave_two
+  become: yes
+  vars_files:
+    - common-vars.yaml
+    - slave-two-vars.yaml
+  roles:
+    - role: postgresql
+    - role: postgresql-slave
+- hosts: minio
+  become: yes
+  vars_files:
+    - minio-vars.yaml
+  roles:
+    - role: minio
