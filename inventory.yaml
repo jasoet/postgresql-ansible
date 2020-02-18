@@ -10,7 +10,7 @@ all:
         ansible_port: 22
         ansible_user: vagrant
         ansible_private_key_file: .vagrant/machines/master/virtualbox/private_key
-    postgres_slave_one:
+    postgres_slave:
       hosts:
         slave-one:
           ansible_host: 192.168.33.12
@@ -19,7 +19,7 @@ all:
         ansible_python_interpreter: /usr/bin/python3
         ansible_port: 22
         ansible_user: vagrant
-    postgres_slave_two:
+    postgres_slave_of_slave:
       hosts:
         slave-two:
           ansible_host: 192.168.33.13

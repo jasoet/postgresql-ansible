@@ -4,5 +4,5 @@ postgresql_pg_hba_custom:
 
 
 postgresql_replication_master_host: 192.168.33.10
-postgresql_replication_confirmation: True
+postgresql_replication_setup: True
 

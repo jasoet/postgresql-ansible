@@ -1,29 +1,29 @@
 - hosts: postgres_master
   become: yes
   vars_files:
-    - common-vars.yaml
-    - master-vars.yaml
+    - ./vars/pg_commons.yaml
+    - ./vars/pg_master.yaml
   roles:
-    - role: postgresql
-- hosts: postgres_slave_one
+    - role: anxs.postgresql
+- hosts: postgres_slave
   become: yes
   vars_files:
-    - common-vars.yaml
-    - slave-vars.yaml
+    - ./vars/pg_commons.yaml
+    - ./vars/pg_slave.yaml
   roles:
-    - role: postgresql
+    - role: anxs.postgresql
     - role: postgresql-slave
-- hosts: postgres_slave_two
+- hosts: postgres_slave_of_slave
   become: yes
   vars_files:
-    - common-vars.yaml
-    - slave-two-vars.yaml
+    - ./vars/pg_commons.yaml
+    - ./vars/pg_slave_of_slave.yaml
   roles:
-    - role: postgresql
+    - role: anxs.postgresql
     - role: postgresql-slave
 - hosts: minio
   become: yes
   vars_files:
-    - minio-vars.yaml
+    - ./vars/minio.yaml
   roles:
-    - role: minio
+    - role: atosatto.minio

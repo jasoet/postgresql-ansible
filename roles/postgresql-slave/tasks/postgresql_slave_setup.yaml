@@ -1,0 +1,23 @@
+- name: PostgreSQL | Ensure PostgreSQL is running
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: started
+
+- name: PostgreSQL | Ensure PostgreSQL is stopped
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: stopped
+
+- name: Remove Postgresql Data
+  file:
+    state: absent
+    path: "{{ postgresql_data_directory }}"
+
+- name: Initialize the slave database
+  shell: "pg_basebackup -h {{ postgresql_replication_master_host }}  -D  {{ postgresql_data_directory }} -U {{ postgresql_replication_user }} -R -X stream -v -P"
+  become_user: postgres
+
+- name: PostgreSQL | Ensure PostgreSQL is running after initialize slave
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: started
