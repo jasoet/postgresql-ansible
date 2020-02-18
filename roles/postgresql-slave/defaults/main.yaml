@@ -1,6 +1,7 @@
-postgresql_version: 12
+postgresql_replication_enable: False
+walg_support_enable: False
 
-postgresql_replication_setup: False
+postgresql_version: 12
 
 postgresql_replication_master_host: ""
 postgresql_replication_master_port: 5432
@@ -14,3 +15,15 @@ postgresql_bin_directory: /usr/bin
 postgresql_cluster_name: main
 postgresql_varlib_directory_name: "postgresql"
 postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{ postgresql_version }}/{{ postgresql_cluster_name }}"
+
+walg_version: v0.2.14
+walg_script_location: /usr/local/bin
+
+walg_aws_endpoint: ""
+
+walg_s3_prefix: ""
+walg_aws_access_key_id: ""
+walg_aws_secret_access_key: ""
+walg_aws_region: "ap-southeast-1"
+
+

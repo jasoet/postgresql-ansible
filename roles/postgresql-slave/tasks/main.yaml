@@ -1,2 +1,5 @@
+- import_tasks: walg_install.yaml
+  when: walg_support_enable == True
+
 - import_tasks: postgresql_slave_setup.yaml
-  when: postgresql_replication_setup == true
+  when: postgresql_replication_enable == True
