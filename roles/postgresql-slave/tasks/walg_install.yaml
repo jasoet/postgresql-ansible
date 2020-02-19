@@ -9,10 +9,24 @@
     owner: "root"
     group: "root"
     mode: 0755
-  register: _download_server
-  until: _download_server is succeeded
+  register: _download_executable
+  until: _download_executable is succeeded
   retries: 5
   delay: 2
+
+- name: Extract Walg Executable
+  unarchive:
+    src: "{{ _download_executable.dest }}"
+    dest: "{{ walg_script_location }}"
+    owner: "postgres"
+    group: "postgres"
+    mode: 0755
+    remote_src: yes
+
+- name: Remove downloaded walg tar
+  file:
+    path: "{{ _download_executable.dest }}"
+    state: absent
 
 - name: Generate the base_backup script
   template:

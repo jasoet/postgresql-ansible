@@ -1,0 +1,6 @@
+dependencies:
+  - role: anxs.postgresql
+    vars:
+      postgresql_version: "{{ postgresql_replication_version }}"
+      postgresql_archive_mode: "{{ postgresql_replication_archive_mode }}"
+      postgresql_archive_command: "{{ postgresql_replication_archive_command }}"

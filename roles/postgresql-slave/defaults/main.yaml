@@ -1,7 +1,20 @@
+# Enable replication and wal-g support
 postgresql_replication_enable: False
 walg_support_enable: False
 
-postgresql_version: 12
+# Wal-g config
+walg_version: v0.2.14
+walg_script_location: /usr/local/bin
+
+# Wal-g base_backup and archive_backup config
+walg_aws_endpoint: "" # Support for minio usage, leave blank if you want to use real S3
+walg_s3_prefix: ""
+walg_aws_access_key_id: ""
+walg_aws_secret_access_key: ""
+walg_aws_region: "ap-southeast-1"
+
+# Postgresql Replication config
+postgresql_replication_version: 12
 
 postgresql_replication_master_host: ""
 postgresql_replication_master_port: 5432
@@ -14,16 +27,7 @@ postgresql_bin_directory: /usr/bin
 
 postgresql_cluster_name: main
 postgresql_varlib_directory_name: "postgresql"
-postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{ postgresql_version }}/{{ postgresql_cluster_name }}"
+postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{ postgresql_replication_version }}/{{ postgresql_cluster_name }}"
 
-walg_version: v0.2.14
-walg_script_location: /usr/local/bin
-
-walg_aws_endpoint: ""
-
-walg_s3_prefix: ""
-walg_aws_access_key_id: ""
-walg_aws_secret_access_key: ""
-walg_aws_region: "ap-southeast-1"
-
-
+postgresql_replication_archive_mode: "always"
+postgresql_replication_archive_command: "{{ walg_script_location }}/walg_archive_command.sh"
