@@ -19,9 +19,9 @@
     - ./vars/pg_slave_of_slave.yaml
   roles:
     - role: postgresql-slave
-#- hosts: minio
-#  become: yes
-#  vars_files:
-#    - ./vars/minio.yaml
-#  roles:
-#    - role: atosatto.minio
+- hosts: minio
+  become: yes
+  vars_files:
+    - ./vars/minio.yaml
+  roles:
+    - role: atosatto.minio
