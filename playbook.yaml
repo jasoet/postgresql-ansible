@@ -11,14 +11,14 @@
     - ./vars/pg_commons.yaml
     - ./vars/pg_slave.yaml
   roles:
-    - role: postgresql-slave
+    - role: posgresql-replication
 - hosts: postgres_slave_of_slave
   become: yes
   vars_files:
     - ./vars/pg_commons.yaml
     - ./vars/pg_slave_of_slave.yaml
   roles:
-    - role: postgresql-slave
+    - role: posgresql-replication
 - hosts: minio
   become: yes
   vars_files:

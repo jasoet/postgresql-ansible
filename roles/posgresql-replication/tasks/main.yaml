@@ -1,4 +1,4 @@
-- import_tasks: walg_install.yaml
+- import_tasks: walg_setup.yaml
   when: walg_support_enable == True
 
 - import_tasks: postgresql_slave_setup.yaml

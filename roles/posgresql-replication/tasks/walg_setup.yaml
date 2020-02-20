@@ -28,13 +28,21 @@
     path: "{{ _download_executable.dest }}"
     state: absent
 
-- name: Generate the base_backup script
+- name: Generate the wal-g base_backup script
   template:
     src: base_backup.sh.j2
     dest: "{{ walg_script_location }}/walg_base_backup.sh"
     owner: "postgres"
     group: "postgres"
     mode: 0755
+
+- name: Setup Cron from wal-g base_backup script
+  cron:
+    name: "walg base backup script"
+    minute: "0"
+    hour: "1"
+    job: "{{ walg_script_location }}/walg_base_backup.sh"
+    state: present
 
 - name: Generate the archive_command script
   template:

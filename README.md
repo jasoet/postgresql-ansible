@@ -34,6 +34,9 @@ This POC use Vagrant to provision VMs, and use `ansible-playbook` command to exe
 - Execute `vagrant up` 
 - Execute Ansible Playbook `ansible-playbook -i inventory.yaml playbook.yaml`
 
+### Inspect Result
+- Execute `vagrant ssh <vm-name>`
+
 ## Details
 ### Vagrant
 Vagrant will install 4 VMs with following details   
