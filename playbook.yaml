@@ -5,23 +5,24 @@
     - ./vars/pg_master.yaml
   roles:
     - role: anxs.postgresql
+    - role: postgresql-metrics-exporter
 - hosts: postgres_slave
   become: yes
   vars_files:
     - ./vars/pg_commons.yaml
     - ./vars/pg_slave.yaml
   roles:
-    - role: posgresql-replication
+    - role: postgresql-replication
 - hosts: postgres_slave_of_slave
   become: yes
   vars_files:
     - ./vars/pg_commons.yaml
     - ./vars/pg_slave_of_slave.yaml
   roles:
-    - role: posgresql-replication
-- hosts: minio
-  become: yes
-  vars_files:
-    - ./vars/minio.yaml
-  roles:
-    - role: atosatto.minio
+    - role: postgresql-replication
+#- hosts: minio
+#  become: yes
+#  vars_files:
+#    - ./vars/minio.yaml
+#  roles:
+#    - role: atosatto.minio
