@@ -5,3 +5,25 @@ dependencies:
       postgresql_version: "{{ postgresql_replication_version }}"
       postgresql_archive_mode: "{{ postgresql_replication_archive_mode }}"
       postgresql_archive_command: "{{ postgresql_replication_archive_command }}"
+      postgresql_listen_addresses: "*"
+      postgresql_statement_timeout: 60000
+
+      postgresql_log_timezone:   "Asia/Jakarta"
+      postgresql_timezone:   "Asia/Jakarta"
+      postgresql_dynamic_shared_memory_type: "posix"
+      postgresql_checkpoint_segments: 16     # (<= 9.4) in logfile segments, min 1, 16MB each
+      postgresql_log_line_prefix: "%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h  "
+      postgresql_autovacuum: on
+      postgresql_track_counts: on
+      postgresql_max_connections: 1000
+
+      postgresql_wal_level: "hot_standby"
+      postgresql_log_min_duration_statement: 70
+      postgresql_max_wal_senders: 8
+      postgresql_hot_standby: "on"
+      postgresql_wal_keep_segments: 50
+      postgresql_log_checkpoints: on
+      postgresql_log_connections: on
+      postgresql_log_disconnections: on
+      postgresql_log_lock_waits: "on"
+      postgresql_log_temp_files: 0
